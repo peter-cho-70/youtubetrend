@@ -1,4 +1,7 @@
-const API_BASE = "http://localhost:8000";
+const API_BASE =
+  (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? "http://localhost:8000"
+    : "";
 
 const AGE_DIST = [
   { l: "10대", p: 20.6, c: "#7c3aed" },
