@@ -40,12 +40,12 @@ def _startup():
     init_db()
 
 
-@app.get("/health")
+@app.get("/api/health")
 def health():
     return {"ok": True, "date": date.today().isoformat(), "has_api_key": bool(_get_api_key())}
 
 
-@app.post("/snapshot/run")
+@app.post("/api/snapshot/run")
 def snapshot_run():
     """
     로컬 개발용: 클릭/호출로 스냅샷을 저장한다.
@@ -58,7 +58,7 @@ def snapshot_run():
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@app.get("/trending")
+@app.get("/api/trending")
 def trending(
     cat: str = "all",
     period: Literal["daily", "weekly", "monthly"] = "daily",
@@ -70,13 +70,13 @@ def trending(
     return {"generatedAt": date.today().isoformat(), "cat": cat, "period": period, "items": items}
 
 
-@app.get("/channels")
+@app.get("/api/channels")
 def channels(sort: Literal["subs", "views"] = "subs"):
     items = list_channel_top10(snapshot_date=date.today().isoformat(), sort_by=sort)
     return {"generatedAt": date.today().isoformat(), "sort": sort, "items": items}
 
 
-@app.get("/growth")
+@app.get("/api/growth")
 def growth(period: Literal["daily", "weekly", "monthly"] = "daily"):
     try:
         items = list_channel_growth_top10(period=period)
