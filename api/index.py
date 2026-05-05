@@ -12,8 +12,7 @@ from fastapi.responses import FileResponse
 
 from backend.main import app
 
-_ROOT = Path(__file__).resolve().parents[1]
-_PUBLIC = _ROOT / "public"
+_PUBLIC = Path(__file__).resolve().parent / "static"
 
 
 @app.get("/")
